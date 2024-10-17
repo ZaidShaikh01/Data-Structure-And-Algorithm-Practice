@@ -1,8 +1,5 @@
-
-import java.util.*;
-
-public class Main {
-    public static void recursiveBottomPush(int data,Stack<Integer> s1) {
+public class Stack {
+    public static void recursiveBottomPush(int data, java.util.Stack<Integer> s1) {
         if(s1.empty()){
             s1.push(data);
             return;
@@ -12,7 +9,7 @@ public class Main {
         s1.push(t);
     }
     public static void reversString(String str1){
-        Stack<Character> s2=new Stack<>();
+        java.util.Stack<Character> s2=new java.util.Stack<>();
 
         for (int i=0;i<str1.length();i++){
             s2.push(str1.charAt(i));
@@ -24,7 +21,7 @@ public class Main {
         str1=str2.toString();
         System.out.println(str1);
     }
-    public static void reverseStack(Stack<Integer> s1){
+    public static void reverseStack(java.util.Stack<Integer> s1){
         if(s1.empty()){
 
             return;
@@ -35,7 +32,7 @@ public class Main {
     }
 
     public static void nextGreater(int [] arr,int [] nextGreater){
-        Stack<Integer> s=new Stack<>();
+        java.util.Stack<Integer> s=new java.util.Stack<>();
 
         for (int i=arr.length-1;i>=0;i--){
             while (!s.empty() && arr[i]>arr[s.peek()]){
@@ -50,8 +47,57 @@ public class Main {
             s.push(i);
         }
     }
+    public static void maxAreaInHistogram(int [] arr){
+
+        int maxArea=0;
+        java.util.Stack<Integer> s1=new java.util.Stack<>();
+        int [] nSL = new int[arr.length];
+        int[] nSR = new int[arr.length];
+
+        // Next Smallest Right
+        for (int i=arr.length-1;i>=0;i--){
+            while (!s1.empty() && arr[i]<arr[s1.peek()]){
+                s1.pop();
+            }
+            if(s1.empty()){
+                nSR[i]=arr.length;
+            }
+            else {
+                nSR[i]=s1.peek();
+            }
+            s1.push(i);
+        }
+
+        s1=new java.util.Stack<>();
+        // Next smallest left
+        for (int i=0;i<arr.length;i++){
+            while (!s1.empty() && arr[i]<arr[s1.peek()]){
+                s1.pop();
+            }
+            if (s1.empty()){
+                nSL[i]=-1;
+            }
+            else {
+                nSL[i]=s1.peek();
+            }
+            s1.push(i);
+        }
+
+        for (int i=0;i<arr.length;i++){
+            int width=nSR[i]-nSL[i]-1;
+            int height=arr[i];
+            //System.out.println(nSR[i]+"-"+nSL[i]+"-1="+width);
+
+            int currentArea=height*width;
+            maxArea=Math.max(currentArea,maxArea);
+            //System.out.println(currentArea);
+        }
+        //System.out.println(Arrays.toString(nSR));
+        //System.out.println(Arrays.toString(nSL));
+        System.out.println("Maximum area is = "+maxArea+".");
+    }
     public static void stackSpanProblem(int [] stocks, int [] span){
-        Stack<Integer> s1=new Stack<>();
+        java.util.Stack<Integer> s1=new java.util.Stack<>();
         span[0]=1;
         s1.push(0);
         for (int i=1;i<stocks.length;i++){
@@ -73,7 +119,7 @@ public class Main {
 
     }
     public static void parenthesisCheck(String str) {
-        Stack<Character> s = new Stack<>();
+        java.util.Stack<Character> s = new java.util.Stack<>();
         boolean flag=true;
 
         for (int i = 0; i < str.length(); i++) {
@@ -97,7 +143,7 @@ public class Main {
         System.out.println(flag?"True":"False");
     }
     public static void duplicateParenthesis(String string){
-        Stack<Character> s1=new Stack<>();
+        java.util.Stack<Character> s1=new java.util.Stack<>();
         boolean flag=true;
 
         for (int i=0;i<string.length();i++){
@@ -145,7 +191,7 @@ public class Main {
         reverseStack(s1);
         System.out.println(s1);*/
 
-        int [] stocks={100,80,60,70,60,85,100};
+        /*int [] stocks={100,80,60,70,60,85,100};
         int [] span=new int[stocks.length];
         stackSpanProblem(stocks,span);
         System.out.println(Arrays.toString(span));
@@ -156,6 +202,8 @@ public class Main {
         nextGreater(arr,nextGreat);
         System.out.println(Arrays.toString(nextGreat));
         parenthesisCheck("({})[]})");
-        duplicateParenthesis("(((a+b)+c)+(z))");
+        duplicateParenthesis("(((a+b)+c)+(z))");*/
+        int []arr1={2,4,3};
+        maxAreaInHistogram(arr1);
     }
 }
